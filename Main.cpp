@@ -1,4 +1,5 @@
 #include "Mesh.h"
+#include <GL/glut.h>
 
 const unsigned int width = 800;
 const unsigned int height = 800;
@@ -48,6 +49,25 @@ GLuint lightIndices[] =
 	4, 5, 6,
 	4, 6, 7
 };
+
+void display() {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// Draw the teapot
+	glTranslatef(0.0, 0.0, -2.0);
+	glutSolidTeapot(0.5);
+
+	// Draw the ball
+	glTranslatef(1.0, 0.0, 0.0);
+	glutSolidSphere(0.5, 10, 10);
+
+	// Draw the apple
+	glTranslatef(-1.0, 0.0, 0.0);
+	glutSolidSphere(0.25, 10, 10);
+
+	glFlush();
+}
+
 
 int main()
 {
@@ -155,6 +175,7 @@ int main()
 		// Draws different meshes
 		floor.Draw(shaderProgram, camera);
 		light.Draw(lightShader, camera);
+		glutDisplayFunc(display);
 
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
